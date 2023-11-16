@@ -1,10 +1,9 @@
 import { canvas, ctx } from "./canvas"
 import Block from "./class/Block"
+import Dice from "./class/Dice"
 import Player from "./class/Player"
 import { SIZE_DEFAULT, TOTAL_COLUMNS, TOTAL_ROWS } from "./constants"
 import { getCenterXandY } from "./utils"
-
-
 
 const {x,y} = getCenterXandY()
 
@@ -23,7 +22,6 @@ for(let i = 0;i < TOTAL_ROWS; i++){
 }
 
 const player = new Player({ blocks})
-
 
 
 function animate(){
