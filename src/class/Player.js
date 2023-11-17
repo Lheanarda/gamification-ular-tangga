@@ -1,10 +1,15 @@
 import { ctx } from "../canvas"
 import { SIZE_DEFAULT, TOTAL_COLUMNS, TOTAL_ROWS } from "../constants"
 
+// const JUMP = -4 // -2.8
+// const JUMP_UP = -7 // -6
+
+const JUMP = -2.8 // -2.8
+const JUMP_UP = -6 // -6
 class Player{
     constructor({ blocks}){
-        this.width = 25 
-        this.height = 25 
+        this.width = SIZE_DEFAULT * 0.5 // 0.8
+        this.height = SIZE_DEFAULT * 0.5
         this.blocks = blocks
         const initialBlockIndex = TOTAL_COLUMNS*(TOTAL_ROWS - 1)
 
@@ -27,40 +32,17 @@ class Player{
         this.image = new Image()
         this.image.src = './images/cetdoggo.webp'
         
+       
+
+        this.intervals = []
+
         window.addEventListener('keyup',(e)=>{
             if(e.key==='d')this.moveRight()
             if(e.key==='a')this.moveLeft()
             if(e.key==='w')this.moveUp()
             if(e.key==='s') this.moveDown()
             if(e.key==='z') this.debug = !this.debug
-        })
-
-        this.intervals = []
-        this.totalMoved = 1
-        window.addEventListener('click',()=>{
-            const random = Math.floor(Math.random() * 3+1)
-            // const random = 1
-            
-            console.log("=========> roll dice", random)
-            //clear interval 
-            for(let i = 0; i > this.intervals; i++){
-                window.clearInterval(this.intervals[i])
-            }
-            
-            //star interval
-            let countTotalDiceMove = 0
-            const interval = setInterval(()=>{
-                if(countTotalDiceMove >= random) return 
-
-                if(this.totalMoved % TOTAL_COLUMNS === 0 ) this.moveUp()
-                else if (this.totalMoved > TOTAL_COLUMNS ) this.moveLeft()
-                else this.moveRight()
-
-                this.totalMoved++
-                countTotalDiceMove ++
-            },300)
-
-            this.intervals.push(interval)
+            if(e.key==='m') this.move(3)
         })
     }
     draw(){
@@ -74,7 +56,7 @@ class Player{
             //left
             ctx.fillRect(this.currentLeftCollision, this.currentBottomCollision,4,4)
             //right 
-            ctx.fillRect(this.currentRightCollision, this.currentBottomCollision,4,4)
+            ctx.fillRect(this.currentRightCollision - 4, this.currentBottomCollision,4,4)
         }
     }
 
@@ -106,12 +88,35 @@ class Player{
         }
     }
 
+    move(totalMove){
+        //clear interval 
+        for(let i = 0; i > this.intervals; i++){
+            window.clearInterval(this.intervals[i])
+        }
+        
+        //star interval
+        let countTotalDiceMove = 0
+        const interval = setInterval(()=>{
+            if(countTotalDiceMove >= totalMove) return 
+            const currentBlock = this.getCurrentBlock()
+            if(currentBlock){
+                if(currentBlock.direction === 'up') this.moveUp()
+                else if (currentBlock.direction==='right') this.moveRight()
+                else if (currentBlock.direction==='left') this.moveLeft()
+                countTotalDiceMove++
+            }
+            
+        },300)
+
+        this.intervals.push(interval)
+    }
+
     moveRight(){
         if(this.x !== this.currentLeftCollision){
             this.currentRightCollision = this.currentRightCollision + SIZE_DEFAULT
             this.currentLeftCollision = this.currentLeftCollision + SIZE_DEFAULT
         }
-        this.vy = -2.8
+        this.vy = JUMP
         this.gravityX = 'right'
     }
 
@@ -121,11 +126,11 @@ class Player{
             this.currentRightCollision = this.currentRightCollision - SIZE_DEFAULT
         }
         this.gravityX = 'left'
-        this.vy = -2.8
+        this.vy = JUMP
     }
 
     moveUp(){
-        this.vy = -6
+        this.vy = JUMP_UP
         this.currentBottomCollision -= SIZE_DEFAULT
     }
     moveDown(){
@@ -138,6 +143,19 @@ class Player{
             x : newX - this.width /2,
             y : newY - this.height / 2
         }
+    }
+
+    getCurrentBlock(){
+        let currentBlock
+        for(let i = 0; i<this.blocks.length; i++){
+            const {x, y} = this.anchorCenterPositionInBlock(this.blocks[i])
+            if(this.x === x && this.y === y){
+                currentBlock = this.blocks[i]
+                break
+            }
+        }
+
+        return currentBlock
     }
 
 }

@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
 body{
     background-color:#fafafa ;
+    font-family: 'Permanent Marker', cursive;
 }
 
 .dice{
