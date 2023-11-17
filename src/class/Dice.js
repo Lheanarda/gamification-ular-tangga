@@ -23,6 +23,8 @@ class Dice{
         window.addEventListener('click',()=>{
           this.rollDice()
         })
+
+        window.addEventListener('touchend',()=>this.rollDice())
     }
 
     draw(){
