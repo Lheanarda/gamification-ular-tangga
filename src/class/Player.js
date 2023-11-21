@@ -26,7 +26,7 @@ class Player{
 
         this.gravityX = 'right'
 
-        this.debug = false
+        this.debug = true
 
         //image player
         this.image = new Image()
