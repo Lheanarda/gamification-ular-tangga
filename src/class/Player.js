@@ -86,35 +86,27 @@ class Player{
     }
 
     move(totalMove){
-        //clear interval 
-        // for(let i = 0; i > this.intervals; i++){
-        //     window.clearInterval(this.intervals[i])
-        // }
-        
-        // //star interval
-        // let countTotalDiceMove = 0
-        // const interval = setInterval(()=>{
-        //     if(countTotalDiceMove >= totalMove) return alert("hello world")
-        //     const currentBlock = this.getCurrentBlock()
-        //     if(currentBlock){
-        //         if(currentBlock.direction === 'up') this.moveUp()
-        //         else if (currentBlock.direction==='right') this.moveRight()
-        //         else if (currentBlock.direction==='left') this.moveLeft()
-        //         countTotalDiceMove++
-        //     }
-            
-        // },300)
-
-        // this.intervals.push(interval)
-
-
-        const currentBlock = this.getCurrentBlock()
-        alert(currentBlock ? JSON.stringify(currentBlock) : "kosong")
-        if(currentBlock){
-            if(currentBlock.direction === 'up') this.moveUp()
-            else if (currentBlock.direction==='right') this.moveRight()
-            else if (currentBlock.direction==='left') this.moveLeft()
+       // clear interval 
+        for(let i = 0; i > this.intervals; i++){
+            window.clearInterval(this.intervals[i])
         }
+        
+        //star interval
+        let countTotalDiceMove = 0
+        const interval = setInterval(()=>{
+            if(countTotalDiceMove >= totalMove) return 
+            const currentBlock = this.getCurrentBlock()
+            if(currentBlock){
+                if(currentBlock.direction === 'up') this.moveUp()
+                else if (currentBlock.direction==='right') this.moveRight()
+                else if (currentBlock.direction==='left') this.moveLeft()
+                countTotalDiceMove++
+            }
+            
+        },300)
+
+        this.intervals.push(interval)
+
     }
 
     moveRight(){
@@ -154,8 +146,12 @@ class Player{
     getCurrentBlock(){
         let currentBlock
         for(let i = 0; i<this.blocks.length; i++){
-            const {x, y} = this.anchorCenterPositionInBlock(this.blocks[i])
-            if(this.x === x && this.y === y){
+            const left = this.blocks[i].x 
+            const right = this.blocks[i].x + this.blocks[i].size
+            const top = this.blocks[i].y
+            const bottom = this.blocks[i].y + this.blocks[i].size
+
+            if(this.x >= left && this.x <= right && this.y >= top && this.y <= bottom){
                 currentBlock = this.blocks[i]
                 break
             }
