@@ -12,10 +12,8 @@ class Block{
 
     draw(){
         ctx.lineWidth = 1
-        ctx.fillStyle = '#fce7f3'
-        ctx.strokeStyle = '#9f1239'
+        ctx.fillStyle = 'transparent'
         ctx.fillRect(this.x, this.y, this.size, this.size)
-        ctx.strokeRect(this.x, this.y, this.size, this.size)
 
         const {x,y} = this.getCenter()
 
@@ -23,7 +21,7 @@ class Block{
         ctx.fillStyle = '#991b1b'
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-        ctx.fillText(this.boardIndex,x, y)
+        // ctx.fillText(this.boardIndex,x, y)
     }
 
     getCenter(){

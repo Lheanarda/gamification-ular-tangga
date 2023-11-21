@@ -1,5 +1,6 @@
 import { canvas, ctx } from "./canvas"
 import Block from "./class/Block"
+import Board from "./class/Board"
 import Dice from "./class/Dice"
 import Player from "./class/Player"
 import { SIZE_DEFAULT, TOTAL_COLUMNS, TOTAL_ROWS } from "./constants"
@@ -7,8 +8,12 @@ import { getCenterXandY } from "./utils"
 
 const {x,y} = getCenterXandY()
 
-const startX = x - Math.floor(TOTAL_COLUMNS / 2) * SIZE_DEFAULT
-const startY = y - Math.floor(TOTAL_ROWS / 2) * SIZE_DEFAULT - 75
+// const startX = x - Math.floor(TOTAL_COLUMNS / 2) * SIZE_DEFAULT
+// const startY = y - Math.floor(TOTAL_ROWS / 2) * SIZE_DEFAULT - 75
+
+const startX = 0
+const startY = 0
+
 // const startY = startX
 
 const blocks = []
@@ -37,13 +42,21 @@ for(let i = 0;i < TOTAL_ROWS; i++){
 
 const player = new Player({ blocks})
 
-const dice = new Dice({x:startX, y:canvas.height - 100, player})
+const dice = new Dice({x:startX + 50, y:canvas.height - 100, player})
 
+
+const board = new Board({
+    x:startX,
+    y:startY,
+    height:canvas.width,
+    width:canvas.width
+})
 
 
 function animate(){
     requestAnimationFrame(animate)
     ctx.clearRect(0,0,canvas.width, canvas.height)
+    board.draw()
     blocks.forEach(b=>b.draw())
     player.update()
     dice.update()

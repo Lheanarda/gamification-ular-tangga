@@ -4,12 +4,12 @@ import { SIZE_DEFAULT, TOTAL_COLUMNS, TOTAL_ROWS } from "../constants"
 // const JUMP = -4 // -2.8
 // const JUMP_UP = -7 // -6
 
-const JUMP = -2.8 // -2.8
-const JUMP_UP = -6 // -6
+const JUMP = -4 // -2.8
+const JUMP_UP = -7 // -6
 class Player{
     constructor({ blocks}){
-        this.width = SIZE_DEFAULT * 0.5 // 0.8
-        this.height = SIZE_DEFAULT * 0.5
+        this.width = SIZE_DEFAULT * 1.2 // 0.8
+        this.height = SIZE_DEFAULT * 1.2
         this.blocks = blocks
         const initialBlockIndex = TOTAL_COLUMNS*(TOTAL_ROWS - 1)
 
@@ -30,10 +30,7 @@ class Player{
 
         //image player
         this.image = new Image()
-        this.image.src = './images/cetdoggo.webp'
-        
-       
-
+        this.image.src = './images/mario.png'
         this.intervals = []
 
         window.addEventListener('keyup',(e)=>{
@@ -46,9 +43,9 @@ class Player{
         })
     }
     draw(){
-        ctx.fillStyle = '#f43f5e'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
-        // ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
+        // ctx.fillStyle = '#f43f5e'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
 
         if(this.debug){
             //debug 

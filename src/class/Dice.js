@@ -5,7 +5,7 @@ class Dice{
     constructor({x, y, player}){
         this.x = x 
         this.y = y
-        this.size = 1.05*SIZE_DEFAULT
+        this.size = 1.5*SIZE_DEFAULT
 
         this.vx = 0
         this.vy = 0
@@ -14,17 +14,15 @@ class Dice{
 
         this.collisionBottom = this.y + this.size
         this.collisionLeft = this.x
-        this.collisionRight = this.x + 180
+        this.collisionRight = this.x + 200
 
         this.validation = 0
         this.randomize = false
         this.value = 1
 
-        window.addEventListener('click',()=>{
-          this.rollDice()
-        })
+        window.addEventListener('click',() => this.rollDice())
 
-        window.addEventListener('touchend',()=>this.rollDice())
+        window.addEventListener('touchend',() => this.rollDice())
     }
 
     draw(){
