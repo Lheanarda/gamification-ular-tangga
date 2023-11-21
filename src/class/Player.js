@@ -8,8 +8,8 @@ const JUMP = -2.8 // -2.8
 const JUMP_UP = -6 // -6
 class Player{
     constructor({ blocks}){
-        this.width = SIZE_DEFAULT * 1.2 // 0.8
-        this.height = SIZE_DEFAULT * 1.2
+        this.width = SIZE_DEFAULT * 0.8 // 0.8
+        this.height = SIZE_DEFAULT * 0.8
         this.blocks = blocks
         const initialBlockIndex = TOTAL_COLUMNS*(TOTAL_ROWS - 1)
 
