@@ -20,10 +20,10 @@ class Dice{
         this.randomize = false
         this.value = 1
 
-        window.addEventListener('click',() => this.rollDice())
+        // window.addEventListener('click',() => this.rollDice())
 
-        window.addEventListener('touchend',() => this.rollDice())
-        // window.addEventListener('touchend',() => this.player.move(3))
+        // window.addEventListener('touchend',() => this.rollDice())
+        window.addEventListener('touchend',() => this.player.moveUp())
     }
 
     draw(){
