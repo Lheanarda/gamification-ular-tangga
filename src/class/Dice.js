@@ -23,7 +23,7 @@ class Dice{
         // window.addEventListener('click',() => this.rollDice())
 
         // window.addEventListener('touchend',() => this.rollDice())
-        window.addEventListener('touchend',() => this.player.moveUp())
+        window.addEventListener('touchend',() => this.player.moveRight())
     }
 
     draw(){
