@@ -101,13 +101,15 @@ class Player{
                 else if (currentBlock.direction==='right') this.moveRight()
                 else if (currentBlock.direction==='left') this.moveLeft()
                 countTotalDiceMove++
+
+                if(countTotalDiceMove === totalMove){
+                    const placedBlock = this.blocks.find(b=>b.boardIndex===currentBlock.boardIndex + 1)
+                    console.log(placedBlock)
+                }
             }
-            
         },500)
 
         this.intervals.push(interval)
-
-
     }
 
     moveRight(){

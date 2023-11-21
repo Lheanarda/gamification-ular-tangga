@@ -2,12 +2,13 @@ import { ctx } from "../canvas"
 import { SIZE_DEFAULT } from "../constants"
 
 class Block{
-    constructor({x,y,size=SIZE_DEFAULT, boardIndex, direction}){
+    constructor({x,y,size=SIZE_DEFAULT, boardIndex, direction, action}){
         this.size = size
         this.x = x 
         this.y = y
         this.boardIndex = boardIndex
         this.direction = direction
+        this.action = action
     }
 
     draw(){

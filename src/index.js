@@ -3,7 +3,7 @@ import Block from "./class/Block"
 import Board from "./class/Board"
 import Dice from "./class/Dice"
 import Player from "./class/Player"
-import { SIZE_DEFAULT, TOTAL_COLUMNS, TOTAL_ROWS } from "./constants"
+import { BLOCK_ACTION, SIZE_DEFAULT, TOTAL_COLUMNS, TOTAL_ROWS } from "./constants"
 import { getCenterXandY } from "./utils"
 
 const {x,y} = getCenterXandY()
@@ -22,14 +22,15 @@ let isDesc = true
 
 for(let i = 0;i < TOTAL_ROWS; i++){
     for(let j=0; j< TOTAL_COLUMNS; j++){
-
         let direction = isDesc ? 'left' : "right"
         if(number % TOTAL_COLUMNS===0) direction  = "up"
+        const foundSpecial = BLOCK_ACTION.find(b=>b.boardIndex===number)
         blocks.push(new Block({
             x:startX + (j*SIZE_DEFAULT),
             y:startY + (i*SIZE_DEFAULT),
             boardIndex: number,
-            direction
+            direction,
+            action:foundSpecial
         }))
         if(isDesc) number --
         else number++
@@ -37,7 +38,6 @@ for(let i = 0;i < TOTAL_ROWS; i++){
     if(isDesc) number -= TOTAL_COLUMNS - 1
     else number -= TOTAL_COLUMNS + 1
     isDesc =  !isDesc
-    
 }
 
 const player = new Player({ blocks})
