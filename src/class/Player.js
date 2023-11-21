@@ -94,7 +94,7 @@ class Player{
         //star interval
         let countTotalDiceMove = 0
         const interval = setInterval(()=>{
-            if(countTotalDiceMove >= totalMove) return 
+            if(countTotalDiceMove >= totalMove) return
             const currentBlock = this.getCurrentBlock()
             if(currentBlock){
                 if(currentBlock.direction === 'up') this.moveUp()
@@ -103,9 +103,10 @@ class Player{
                 countTotalDiceMove++
             }
             
-        },300)
+        },500)
 
         this.intervals.push(interval)
+
 
     }
 
@@ -150,6 +151,13 @@ class Player{
             const right = this.blocks[i].x + this.blocks[i].size
             const top = this.blocks[i].y
             const bottom = this.blocks[i].y + this.blocks[i].size
+
+            const {x, y} = this.anchorCenterPositionInBlock(this.blocks[i])
+
+            // if(this.x >= x - 0.1 && this.y >= y - 0.1){
+            //     currentBlock = this.blocks[i]
+            //     break
+            // }
 
             if(this.x >= left && this.x <= right && this.y >= top && this.y <= bottom){
                 currentBlock = this.blocks[i]
