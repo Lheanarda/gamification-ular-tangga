@@ -87,25 +87,33 @@ class Player{
 
     move(totalMove){
         //clear interval 
-        for(let i = 0; i > this.intervals; i++){
-            window.clearInterval(this.intervals[i])
-        }
+        // for(let i = 0; i > this.intervals; i++){
+        //     window.clearInterval(this.intervals[i])
+        // }
         
-        //star interval
-        let countTotalDiceMove = 0
-        const interval = setInterval(()=>{
-            if(countTotalDiceMove >= totalMove) return 
-            const currentBlock = this.getCurrentBlock()
-            if(currentBlock){
-                if(currentBlock.direction === 'up') this.moveUp()
-                else if (currentBlock.direction==='right') this.moveRight()
-                else if (currentBlock.direction==='left') this.moveLeft()
-                countTotalDiceMove++
-            }
+        // //star interval
+        // let countTotalDiceMove = 0
+        // const interval = setInterval(()=>{
+        //     if(countTotalDiceMove >= totalMove) return alert("hello world")
+        //     const currentBlock = this.getCurrentBlock()
+        //     if(currentBlock){
+        //         if(currentBlock.direction === 'up') this.moveUp()
+        //         else if (currentBlock.direction==='right') this.moveRight()
+        //         else if (currentBlock.direction==='left') this.moveLeft()
+        //         countTotalDiceMove++
+        //     }
             
-        },300)
+        // },300)
 
-        this.intervals.push(interval)
+        // this.intervals.push(interval)
+
+
+        const currentBlock = this.getCurrentBlock()
+        if(currentBlock){
+            if(currentBlock.direction === 'up') this.moveUp()
+            else if (currentBlock.direction==='right') this.moveRight()
+            else if (currentBlock.direction==='left') this.moveLeft()
+        }
     }
 
     moveRight(){
