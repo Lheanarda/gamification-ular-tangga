@@ -22,7 +22,8 @@ class Dice{
 
         window.addEventListener('click',() => this.rollDice())
 
-        window.addEventListener('touchend',() => this.rollDice())
+        // window.addEventListener('touchend',() => this.rollDice())
+        window.addEventListener('touchend',() => this.player.move(3))
     }
 
     draw(){
@@ -69,10 +70,10 @@ class Dice{
        if(this.x === this.collisionRight - this.size && this.y === this.collisionBottom - this.size){
             this.validation++
        }
-       if(this.validation===40){
-          this.randomize = false
-          this.player.move(this.value)
-       }
+    //    if(this.validation===40){
+    //       this.randomize = false
+    //       this.player.move(this.value)
+    //    }
     }
 
     renderRandomNumber(){
