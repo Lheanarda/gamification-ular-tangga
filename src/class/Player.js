@@ -109,8 +109,8 @@ class Player{
 
 
         const currentBlock = this.getCurrentBlock()
+        alert(currentBlock ? JSON.stringify(currentBlock) : "kosong")
         if(currentBlock){
-            alert("move "+currentBlock.direction)
             if(currentBlock.direction === 'up') this.moveUp()
             else if (currentBlock.direction==='right') this.moveRight()
             else if (currentBlock.direction==='left') this.moveLeft()
