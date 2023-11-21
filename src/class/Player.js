@@ -4,8 +4,8 @@ import { SIZE_DEFAULT, TOTAL_COLUMNS, TOTAL_ROWS } from "../constants"
 // const JUMP = -4 // -2.8
 // const JUMP_UP = -7 // -6
 
-const JUMP = -4 // -2.8
-const JUMP_UP = -7 // -6
+const JUMP = -2.8 // -2.8
+const JUMP_UP = -6 // -6
 class Player{
     constructor({ blocks}){
         this.width = SIZE_DEFAULT * 1.2 // 0.8
