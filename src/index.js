@@ -52,7 +52,6 @@ const board = new Board({
     width:canvas.width
 })
 
-
 function animate(){
     requestAnimationFrame(animate)
     ctx.clearRect(0,0,canvas.width, canvas.height)

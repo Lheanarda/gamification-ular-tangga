@@ -86,15 +86,16 @@ class Player{
     }
 
     move(totalMove){
-       // clear interval 
-        for(let i = 0; i > this.intervals; i++){
-            window.clearInterval(this.intervals[i])
-        }
-        
+        // totalMove = 39
         //star interval
         let countTotalDiceMove = 0
+    
+        this.intervals = []
         const interval = setInterval(()=>{
-            if(countTotalDiceMove >= totalMove) return
+            //clear interval
+            if(countTotalDiceMove >= totalMove) return this.intervals.forEach(i=>{
+                window.clearInterval(i)
+            })
             const currentBlock = this.getCurrentBlock()
             if(currentBlock){
                 if(currentBlock.direction === 'up') this.moveUp()
@@ -104,7 +105,7 @@ class Player{
 
                 if(countTotalDiceMove === totalMove){
                     const placedBlock = this.blocks.find(b=>b.boardIndex===currentBlock.boardIndex + 1)
-                    console.log(placedBlock)
+                    if(placedBlock && placedBlock.action) this.moveOnAction(placedBlock.action)
                 }
             }
         },500)
@@ -136,6 +137,26 @@ class Player{
     }
     moveDown(){
         this.currentBottomCollision += SIZE_DEFAULT
+    }
+
+    moveOnAction(action){
+        const foundDestinationBlock = this.blocks.find(b=>b.boardIndex===action.boardIndexDestination)
+        if(!foundDestinationBlock) return
+        console.log(foundDestinationBlock)
+       
+       
+        const {x, y} = this.anchorCenterPositionInBlock(foundDestinationBlock)
+
+
+       
+       
+        setTimeout(()=>{
+            this.currentBottomCollision = foundDestinationBlock.y + this.height
+            this.vy = Math.floor((this.currentBottomCollision - this.y) / 6)
+            this.gravityX = 'right'
+            this.currentRightCollision = x + this.width
+            this.currentLeftCollision = x  - SIZE_DEFAULT
+        },800)
     }
 
     anchorCenterPositionInBlock(block){
