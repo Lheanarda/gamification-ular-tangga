@@ -26,7 +26,7 @@ class Player{
 
         this.gravityX = 'right'
 
-        this.debug = true
+        this.debug = false
 
         //image player
         this.image = new Image()
@@ -86,7 +86,6 @@ class Player{
     }
 
     move(totalMove){
-        // totalMove = 39
         //star interval
         let countTotalDiceMove = 0
     
@@ -142,20 +141,18 @@ class Player{
     moveOnAction(action){
         const foundDestinationBlock = this.blocks.find(b=>b.boardIndex===action.boardIndexDestination)
         if(!foundDestinationBlock) return
-        console.log(foundDestinationBlock)
-       
-       
+    
         const {x, y} = this.anchorCenterPositionInBlock(foundDestinationBlock)
-
-
-       
        
         setTimeout(()=>{
-            this.currentBottomCollision = foundDestinationBlock.y + this.height
-            this.vy = Math.floor((this.currentBottomCollision - this.y) / 6)
+            const {y} = this.anchorCenterPositionInBlock(foundDestinationBlock)
+            this.currentBottomCollision = y + this.height
+            
+            //if move up
+            if(foundDestinationBlock.y < this.y) this.vy = Math.floor((this.currentBottomCollision - this.y) / 6)
             this.gravityX = 'right'
-            this.currentRightCollision = x + this.width
-            this.currentLeftCollision = x  - SIZE_DEFAULT
+            this.currentRightCollision = x + this.width 
+            this.currentLeftCollision = x  - SIZE_DEFAULT 
         },800)
     }
 
@@ -177,10 +174,7 @@ class Player{
 
             const {x, y} = this.anchorCenterPositionInBlock(this.blocks[i])
 
-            // if(this.x >= x - 0.1 && this.y >= y - 0.1){
-            //     currentBlock = this.blocks[i]
-            //     break
-            // }
+    
 
             if(this.x >= left && this.x <= right && this.y >= top && this.y <= bottom){
                 currentBlock = this.blocks[i]
