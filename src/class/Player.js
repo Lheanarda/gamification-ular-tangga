@@ -33,6 +33,8 @@ class Player{
         this.image.src = './images/mario.png'
         this.intervals = []
 
+        this.readyToMove = true
+
         window.addEventListener('keyup',(e)=>{
             if(e.key==='d')this.moveRight()
             if(e.key==='a')this.moveLeft()
@@ -89,13 +91,17 @@ class Player{
         // totalMove = 39
         //star interval
         let countTotalDiceMove = 0
-    
+        this.readyToMove = false
         this.intervals = []
         const interval = setInterval(()=>{
             //clear interval
-            if(countTotalDiceMove >= totalMove) return this.intervals.forEach(i=>{
-                window.clearInterval(i)
-            })
+            
+            if(countTotalDiceMove >= totalMove) {
+                this.readyToMove = true
+                return this.intervals.forEach(i=>{
+                    window.clearInterval(i)
+                })
+            }
             const currentBlock = this.getCurrentBlock()
             if(currentBlock){
                 if(currentBlock.direction === 'up') this.moveUp()

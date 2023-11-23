@@ -41,7 +41,7 @@ class Dice{
         ctx.fillRect(this.collisionLeft, this.collisionBottom - this.size, this.size, this.size)
 
         ctx.fillStyle = 'black'
-        ctx.fillText("Roll", this.collisionLeft + this.size / 2 , this.collisionBottom - this.size + this.size /2)
+        ctx.fillText("roll!", this.collisionLeft + this.size / 2 , this.collisionBottom - this.size + this.size /2)
     }
 
 
@@ -91,6 +91,7 @@ class Dice{
     }
 
     rollDice(){
+        if(this.randomize || !this.player.readyToMove ) return
         this.validation = 0
         this.randomize = true
         const randomVy = -Math.floor(Math.random() * 10+15)
