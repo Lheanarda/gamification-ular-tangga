@@ -89,7 +89,7 @@ class Player{
 
     move(totalMove){
         //star interval
-        totalMove = 3
+        // totalMove = 3
         let countTotalDiceMove = 0
         this.readyToMove = false
         this.intervals = []
