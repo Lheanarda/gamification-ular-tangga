@@ -1,8 +1,6 @@
 import { ctx } from "../canvas"
 import { SIZE_DEFAULT, TOTAL_COLUMNS, TOTAL_ROWS } from "../constants"
 
-// const JUMP = -4 // -2.8
-// const JUMP_UP = -7 // -6
 
 const JUMP = -2.8 // -2.8
 const JUMP_UP = -6 // -6
@@ -34,6 +32,8 @@ class Player{
         this.intervals = []
 
         this.readyToMove = true
+
+        this.currentBlock = 1
 
         window.addEventListener('keyup',(e)=>{
             if(e.key==='d')this.moveRight()
@@ -89,12 +89,12 @@ class Player{
 
     move(totalMove){
         //star interval
+        totalMove = 3
         let countTotalDiceMove = 0
         this.readyToMove = false
         this.intervals = []
         const interval = setInterval(()=>{
             //clear interval
-            
             if(countTotalDiceMove >= totalMove) {
                 this.readyToMove = true
                 return this.intervals.forEach(i=>{
@@ -103,14 +103,30 @@ class Player{
             }
             const currentBlock = this.getCurrentBlock()
             if(currentBlock){
-                if(currentBlock.direction === 'up') this.moveUp()
-                else if (currentBlock.direction==='right') this.moveRight()
-                else if (currentBlock.direction==='left') this.moveLeft()
+                // console.log(this.currentBlock , currentBlock.boardIndex)
+                if(this.currentBlock !== currentBlock.boardIndex) return
+
+                if(currentBlock.direction === 'up') {
+                    this.moveUp()
+                    this.currentBlock = currentBlock.boardIndex + 1
+                }
+                else if (currentBlock.direction==='right') {
+                    this.moveRight()
+                    this.currentBlock = currentBlock.boardIndex + 1
+                    // console.log(this.boardIndex)
+                }
+                else if (currentBlock.direction==='left') {
+                    this.moveLeft()
+                    this.currentBlock = currentBlock.boardIndex + 1
+                }
                 countTotalDiceMove++
 
                 if(countTotalDiceMove === totalMove){
                     const placedBlock = this.blocks.find(b=>b.boardIndex===currentBlock.boardIndex + 1)
-                    if(placedBlock && placedBlock.action) this.moveOnAction(placedBlock.action)
+                    if(placedBlock && placedBlock.action) {
+                        this.moveOnAction(placedBlock.action)
+                        this.currentBlock = placedBlock.action.boardIndexDestination 
+                    }
                 }
             }
         },500)
