@@ -53,11 +53,6 @@ const board = new Board({
 })
 
 
-var lastCalledTime, delta;
-var fps;
-const fpsEl = document.getElementById('fps')
-const frameRate = 100
-let calledFrame = 0
 
 function animate(){
     requestAnimationFrame(animate)
@@ -66,22 +61,6 @@ function animate(){
     blocks.forEach(b=>b.draw())
     player.update()
     dice.update()
-
-    //frame rate
-    if(!lastCalledTime) {
-        lastCalledTime = Date.now();
-        fps = 0;
-        return;
-     }
-     delta = (performance.now() - lastCalledTime)/1000;
-     lastCalledTime = performance.now();
-     fps = 1/delta;
-   
-    
-     if(calledFrame % frameRate===0){
-        if(fps > 0)  fpsEl.textContent = `${Math.floor(fps)} fps`
-     } 
-     calledFrame++ 
 }
 
 animate()
